@@ -2,3 +2,10 @@ language: node_js
 node_js: node
 services:
 - mongodb
+deploy:
+  provider: heroku
+  api_key:
+    secure: UWKnoJB+ci1szkBcn0H8I6UzJWrJmteahpsdtWvKXI2hjF8QK7mvk205ChhXLtq7rA5UhTFfMz4+RhhiPitHW31Z65yfLqEFe+xLzDm6agC2fb7k40vz1kPa3uJJ0/iAZW1SppBw8AliyhR4hCvFYABw/0OMlnNyq4UnXzO5LdW4JClNi8Z47xf3Kqew1djPVzLFLZx+Ez6BSjhs3A5P5m0j/rRfwcF7oKlc7+ZUQFAaitaYsPVL/h/sgu0TGZkc7QzZ7AdOrrfTU3vXhx1WxQ7MGNf2AdTCMmeUI0K3QDegBsHYbnsc716dpwbETasIvVlP4Hgk6ldst2nW5n3kYjtRQoeNbDm69gIjKEASrfP48h/PGcaLwWH9vti/PwZhEOCG1TboHtVFXOPF/nnyfD9RLnX7ji3Bxs1hRVnkL/XdYzkNRffAOMQ7a7+uwe+SJEA6Eg9jnSiLFs+MxwuXzWVgT6FIpWHvQ7umD5G0QPbqe3ombac17ryYjXDcX733A6YWCWh5sUcvNyr+CwE6kZBObu3l2do2YqfB9AOMuV1fAPkZPlUkp+3DfY56YSNi2IGv+W5OR0Vd1fdHsa50fIYZBeJEheAbYINZlxBQGQMB3Bw17DBpdEzPvHlnct4tDSdM+54CeBsUYs2EU+aYtp8qEQQBA+CiPs3THa7/rdk=
+  app: stark-everglades-20539
+  on:
+    repo: jeffbernst/blog-app-mongoose-challenge-solution
