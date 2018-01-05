@@ -33,9 +33,9 @@ function seedPostData() {
 // used to generate data to put in db
 function generateAuthor() {
 	const authors = [
-		{firstName: Jeff, lastName: Bernstein},
-		{firstName: Mr, lastName: CodeGuy},
-		{firstName: Ms, lastName: CodeGirl}
+		{firstName: 'Jeff', lastName: 'Bernstein'},
+		{firstName: 'Mr', lastName: 'CodeGuy'},
+		{firstName: 'Ms', lastName: 'CodeGirl'}
 	];
 	return authors[Math.floor(Math.random() * authors.length)];
 }
@@ -49,14 +49,14 @@ function generateTitle() {
 // used to generate data to put in db
 function generateContent() {
 	const content = [
-		'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam commodi cum eveniet incidunt iste nam natus non sed suscipit veniam. Aliquam debitis deleniti dignissimos doloribus maiores modi repudiandae similique tenetur.'
-		'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt eaque, inventore iusto odit perferendis rerum sequi! Alias aliquam dolores possimus sint sit! Doloremque enim magnam sapiente tenetur veritatis? Eum, quos.'
+		'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam commodi cum eveniet incidunt iste nam natus non sed suscipit veniam. Aliquam debitis deleniti dignissimos doloribus maiores modi repudiandae similique tenetur.',
+		'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt eaque, inventore iusto odit perferendis rerum sequi! Alias aliquam dolores possimus sint sit! Doloremque enim magnam sapiente tenetur veritatis? Eum, quos.',
 		'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aliquam autem cum, delectus doloremque eligendi explicabo harum nemo non nulla obcaecati quia quis reprehenderit sapiente vero? Cupiditate eum fugit totam?'
 	];
 	return content[Math.floor(Math.random() * content.length)];
 }
 
-// generate an object represnting a post.
+// generate an object representing a post.
 // can be used to generate seed data for db
 // or request.body data
 function generateBlogPostData() {
@@ -121,11 +121,11 @@ describe('BlogPosts API resource', function () {
 					res = _res;
 					res.should.have.status(200);
 					// otherwise our db seeding didn't work
-					res.body.posts.should.have.length.of.at.least(1);
+					res.body.should.have.length.of.at.least(1);
 					return BlogPost.count();
 				})
 				.then(function (count) {
-					res.body.posts.should.have.length.of(count);
+					res.body.should.have.lengthOf(count);
 				});
 		});
 
@@ -139,15 +139,15 @@ describe('BlogPosts API resource', function () {
 				.then(function (res) {
 					res.should.have.status(200);
 					res.should.be.json;
-					res.body.posts.should.be.a('array');
-					res.body.posts.should.have.length.of.at.least(1);
+					res.body.should.be.a('array');
+					res.body.should.have.length.of.at.least(1);
 
-					res.body.posts.forEach(function (post) {
+					res.body.forEach(function (post) {
 						post.should.be.a('object');
 						post.should.include.keys(
 							'id', 'author', 'content', 'title', 'created');
 					});
-					resBlogPost = res.body.posts[0];
+					resBlogPost = res.body[0];
 					return BlogPost.findById(resBlogPost.id);
 				})
 				.then(function (post) {
@@ -188,7 +188,7 @@ describe('BlogPosts API resource', function () {
 					return BlogPost.findById(res.body.id);
 				})
 				.then(function (post) {
-					post.author.should.equal(`${newBlogPost.author.firstName} ${newBlogPost.author.lastName}`);
+					post.author.should.deep.include({firstName: newBlogPost.author.firstName, lastName: newBlogPost.author.lastName});
 					post.content.should.equal(newBlogPost.content);
 					post.title.should.equal(newBlogPost.title);
 				});
